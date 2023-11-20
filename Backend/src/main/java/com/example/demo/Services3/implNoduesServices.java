@@ -31,7 +31,8 @@ public class implNoduesServices implements NoduesServices{
 	@Autowired
 	private NoduesRepository noduesRepository;
 	
-	
+	@Autowired
+	private DepartmentAdminRepository departmentAdminRepository;
 
 	
 
@@ -90,6 +91,22 @@ public class implNoduesServices implements NoduesServices{
 	public void deleteAllStudents() {
 		noduesRepository.deleteAll();
 		
+	}
+
+
+	//department admin operation
+	@Override
+	public DepartmentAdmin saveDept(DepartmentAdmin departmentAdmin) {
+		
+		return departmentAdminRepository.save(departmentAdmin);
+	}
+
+
+
+	@Override
+	public List<DepartmentAdmin> allDepartment() {
+		
+		return departmentAdminRepository.findAll();
 	}
 	
 

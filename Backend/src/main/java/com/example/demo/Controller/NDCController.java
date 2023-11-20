@@ -95,5 +95,30 @@ public class NDCController {
 		return new ResponseEntity<Student>(noduesServices.updateStudent(id, student),HttpStatus.OK);
 	}
 
+
+//getallforms for department admin
+	@GetMapping("/ndcforms")
+	public ResponseEntity<List<Ndcapply_Form>>getForms(){
+		return new ResponseEntity<List<Ndcapply_Form>>(noduesServices.getAllForms(),HttpStatus.OK);
+	}
+	@PutMapping("/forms/{formId}/status/{status}")
+	public ResponseEntity<Ndcapply_Form>updateStatus(@PathVariable Long formId,@PathVariable String status,@RequestParam Long deptId){
+		try {
+		if(departmentAdminHasAuthority(deptId))
+		{
+		Ndcapply_Form updateForm=noduesServices.updateFormStatus(formId, status,deptId);
+		return ResponseEntity.ok(updateForm);
+		}else {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+		}
+	}catch(Exception e) {
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
+	}
+	private boolean departmentAdminHasAuthority(Long departmentId) {
+        
+        return noduesServices.isUserDepartmentAdmin(departmentId);
+    }
+
 	
 	

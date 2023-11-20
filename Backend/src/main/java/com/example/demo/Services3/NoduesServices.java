@@ -19,7 +19,10 @@ public interface NoduesServices {
 	void deleteAllStudents();
 	Student updateStudent(Long id,Student student);
 	
-
+	//Department Admin
+	public boolean isUserDepartmentAdmin(Long departmentId);
+	DepartmentAdmin saveDept(DepartmentAdmin departmentAdmin);
+	List<DepartmentAdmin>allDepartment();
 
 	
 	
